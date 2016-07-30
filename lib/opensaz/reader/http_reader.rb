@@ -1,6 +1,6 @@
 module Opensaz
   module Reader
-    class BasicReader
+    class HTTPReader
       def initialize(file)
         # file should be full path
         raise "no such file: #{file}" unless File.exist?(file)
