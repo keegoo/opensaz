@@ -1,4 +1,4 @@
-module 
+module Opensaz
   class HTTPResponse < HTTPRequest
     def headers
       first_line = headers_str.split(CRLF)[0]
@@ -13,4 +13,5 @@ module
       {version: a[0], code: a[1], status: a[2]}
     end
   end
+
 end

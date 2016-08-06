@@ -8,7 +8,7 @@ module Opensaz
 
     private
 
-    def read_time
+    def get_time
       doc = Nokogiri::XML(@xml_str)
       doc.xpath("/Session/SessionTimers").each do |node|
         node.attribute("ClientConnected")
@@ -23,6 +23,10 @@ module Opensaz
         # ... too many
       end
       # return a hash
+      {}
+    end
+
+    def get_miscellaneous
       {}
     end
   end

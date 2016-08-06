@@ -3,6 +3,7 @@ module Opensaz
     CRLF = "/r/n"
     SEPERATOR = ": "
     def initialize(request_str)
+      raise "request_str couldn't be nil" if request_str == nil
       @request = request_str
     end
 
@@ -24,9 +25,9 @@ module Opensaz
       {method: a[0], path: a[1], version: a[2]}
     end
 
-    def get_headers(str)
+    def get_headers(lines)
       # turn following lines of headers into hash
-      str.split(CRLF).map do |x|
+      lines.map do |x|
         a = x.split(SEPERATOR)
         [symbolize_it(a[0]), a[1]]
       end.to_h
@@ -35,7 +36,7 @@ module Opensaz
     def symbolize_it(str)
       # make it lower case
       # sub '-'' with '_'
-      str.downcase.gsub('-', '_')
+      str.downcase.gsub('-', '_').to_sym
     end
   end
 end
