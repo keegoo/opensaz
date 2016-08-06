@@ -23,7 +23,7 @@ module Opensaz
     private
 
     def load_page
-      raise "file doesn't exist #{@index_file}" unless File.exist?(@index_file)
+      raise "file #{@index_file} doesn't exist" unless File.exist?(@index_file)
       @page = Nokogiri::HTML(open(@index_file))
     end
 

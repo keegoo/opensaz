@@ -7,4 +7,20 @@ require_relative "opensaz/version"
 
 module Opensaz
   # Your code goes here...
+  def initialize(saz_path)
+    @saz_path = saz_path
+    @dest = nil
+    @sessions = nil
+  end
+
+  def basic_info
+    @dest ||= Extractor.new(@saz_path).unzip
+    # Container.get_basic_info(@dest).to_hash
+  end
+
+  def sessions
+    @dest ||= Extractor.new(@saz_path).unzip
+    # Container.get_sessions(Dir.entries(File.join(@dest, "raw")))
+  end
+
 end
