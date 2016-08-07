@@ -13,9 +13,8 @@ module Opensaz
       get_request_line(first_line).merge(get_headers(following_lines))
     end
 
-    def self.read_body(request_file)
-      raise "file #{request_file} doesn't exist" unless File.exist?(request_file)
-      File.read(request_file).split(CRLF * 2)[1]
+    def body
+      @request.split(CRLF * 2)[1]
     end
 
     private
