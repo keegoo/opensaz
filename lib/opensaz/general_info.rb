@@ -1,15 +1,12 @@
 require 'nokogiri'
 
 module Opensaz
-  class Container
-    def initialize(destination)
-      @index_file = File.join(destination, "_index.htm")
-      @page = nil
-      @packages = nil
+  class GeneralInfo
+    def initialize(html_str)
+      @page = Nokogiri::HTML(html_str)
     end
 
     def to_hash
-      @page ||= Nokogiri::HTML(load_page)
       keys = get_thead
       ary = []
       @page.css('tbody tr').each do |x|
@@ -21,11 +18,6 @@ module Opensaz
     end
 
     private
-
-    def load_page
-      raise "file #{@index_file} doesn't exist" unless File.exist?(@index_file)
-      @page = Nokogiri::HTML(open(@index_file))
-    end
 
     def get_thead
       [:c, :s, :m] + 

@@ -1,8 +1,7 @@
-require_relative 'test_helper.rb'
+require_relative '../test_helper.rb'
 
 class ContainerTest < Minitest::Test
   def setup
-    @container = Opensaz::Container.new("dest")
   end
 
   def test_to_hash
@@ -35,15 +34,14 @@ class ContainerTest < Minitest::Test
 </tr>
 </tbody>
 EOF
-    @container.stub :load_page, str1 do 
-      ary = @container.to_hash
-      assert_equal 2, ary.size
-      assert_equal "2", ary[1][:id]
-      assert_equal "1", ary[0][:id]
-      assert_equal "/entity/name", ary[1][:url]
-      assert_equal "url_1", ary[0][:c]
-      assert_equal "url_2", ary[0][:s]
-      assert_equal "url_3", ary[0][:m]
-    end
+    ginfo1 = Opensaz::GeneralInfo.new(str1)
+    ary = ginfo1.to_hash
+    assert_equal 2, ary.size
+    assert_equal "2", ary[1][:id]
+    assert_equal "1", ary[0][:id]
+    assert_equal "/entity/name", ary[1][:url]
+    assert_equal "url_1", ary[0][:c]
+    assert_equal "url_2", ary[0][:s]
+    assert_equal "url_3", ary[0][:m]
   end
 end
