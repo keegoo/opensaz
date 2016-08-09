@@ -2,7 +2,7 @@ require_relative "opensaz/extractor"
 require_relative "opensaz/general_info"
 require_relative "opensaz/http_request"
 require_relative "opensaz/http_response"
-require_relative "opensaz/http_session"
+require_relative "opensaz/http_miscel"
 require_relative "opensaz/package"
 require_relative "opensaz/version"
 

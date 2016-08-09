@@ -10,7 +10,7 @@ class PackageTest < Minitest::Test
         pkg = Opensaz::Package.new("01", "dest")
         assert_instance_of Opensaz::HTTPRequest, pkg.request
         assert_instance_of Opensaz::HTTPResponse, pkg.response
-        assert_instance_of Opensaz::HTTSession, pkg.miscel
+        assert_instance_of Opensaz::HTTPMiscel, pkg.miscel
       end
     end
   end

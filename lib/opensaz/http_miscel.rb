@@ -1,7 +1,7 @@
 require 'nokogiri'
 
 module Opensaz
-  class HTTSession
+  class HTTPMiscel
     def initialize(xml_str)
       @xml = Nokogiri::XML(xml_str)
     end

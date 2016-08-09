@@ -8,7 +8,7 @@ module Opensaz
 
       @request = HTTPRequest.new(File.read(files[0]))
       @response = HTTPResponse.new(File.read(files[1]))
-      @miscel = HTTSession.new(File.read(files[2]))
+      @miscel = HTTPMiscel.new(File.read(files[2]))
     end
 
     private
