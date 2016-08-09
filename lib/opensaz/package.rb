@@ -4,31 +4,29 @@ require_relative "package/http_session"
 
 module Opensaz
   module Package
-    
-    attr_reader :request, :response, :miscel
 
-    def initialize(identity, dest)
-      @identity = identity
-      @dest = dest
-      check_files
-      files = get_files
+    def self.create(identity, dest)
+      Package.check_files
+      files = Package.get_files(identity, dest)
 
-      @request = HTTPRequest.new(File.read(files[0]))
-      @response = HTTPResponse.new(File.read(files[1]))
-      @miscel = HTTPSession.new(File.read(files[2]))
+      request = HTTPRequest.new(File.read(files[0]))
+      response = HTTPResponse.new(File.read(files[1]))
+      miscel = HTTSession.new(File.read(files[2]))
+
+      return request, response, miscel
     end
 
     private
 
-    def check_files
+    def self.check_files
       get_files.each{|x| raise "No such file: #{x}" unless File.exist?(x) }
     end
 
-    def get_files
+    def self.get_files(identity, dest)
       return [
-        File.join(@dest, "raw", "#{@identity}_c.txt"),
-        File.join(@dest, "raw", "#{@identity}_s.txt"),
-        File.join(@dest, "raw, #{@identity}_m.xml")
+        File.join(dest, "raw", "#{identity}_c.txt"),
+        File.join(dest, "raw", "#{identity}_s.txt"),
+        File.join(dest, "raw", "#{identity}_m.xml")
         ]
     end
   end
