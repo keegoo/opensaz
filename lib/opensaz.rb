@@ -23,7 +23,7 @@ module Opensaz
     @dest ||= Extractor.new(@saz_path).unzip
     ids = basic_info.map{|x| x[:id]}
     ids.each do |x|
-      @packages.push(Package.new(x))
+      @packages.push(Package.new(x, @dest))
     end
     @packages
   end
