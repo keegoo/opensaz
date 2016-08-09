@@ -1,4 +1,4 @@
-require_relative '../../test_helper'
+require_relative '../test_helper'
 
 class HTTPSessionTest < Minitest::Test
   def setup
@@ -34,14 +34,14 @@ EOF
   end
 
   def test_timers
-    sss1 = Opensaz::Package::HTTSession.new(@str1)
+    sss1 = Opensaz::HTTSession.new(@str1)
     assert_equal "2016-07-24T15:55:45.8708013+08:00", sss1.timers[:client_connected]
     assert_equal "32", sss1.timers[:tcp_connect_time]
     assert_equal "2016-07-24T15:56:17.4736089+08:00", sss1.timers[:client_done_response]
   end
 
   def test_flags
-    sss1 = Opensaz::Package::HTTSession.new(@str1)
+    sss1 = Opensaz::HTTSession.new(@str1)
     assert_equal "51320", sss1.flags[:x_egressport]
     assert_equal "123.125.115.164", sss1.flags[:x_hostip]
     assert_equal "iexplore:6716", sss1.flags[:x_processinfo]

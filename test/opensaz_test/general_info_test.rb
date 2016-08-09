@@ -35,7 +35,7 @@ class ContainerTest < Minitest::Test
 </tbody>
 EOF
     ginfo1 = Opensaz::GeneralInfo.new(str1)
-    ary = ginfo1.to_hash
+    ary = ginfo1.to_a
     assert_equal 2, ary.size
     assert_equal "2", ary[1][:id]
     assert_equal "1", ary[0][:id]
