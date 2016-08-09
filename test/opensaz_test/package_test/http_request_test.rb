@@ -1,4 +1,4 @@
-require_relative '../test_helper'
+require_relative '../../test_helper'
 
 class HTTPRequestTest < Minitest::Test
   CRLF = "/r/n"
@@ -21,7 +21,7 @@ EOF
   end
 
   def test_headers
-    req1 = Opensaz::HTTPRequest.new(@str1)
+    req1 = Opensaz::Package::HTTPRequest.new(@str1)
     assert_equal "GET", req1.headers[:method]
     assert_equal "/html/LR/WebHelp/Content/SkinSupport/MadCapAll.js", req1.headers[:path]
     assert_equal "HTTP/1.1", req1.headers[:version]
@@ -31,7 +31,7 @@ EOF
   end
 
   def test_body
-    req1 = Opensaz::HTTPRequest.new(@str1 + CRLF * 2 + @str2)
+    req1 = Opensaz::Package::HTTPRequest.new(@str1 + CRLF * 2 + @str2)
     assert_equal "<name>body</name>", req1.body
   end
 

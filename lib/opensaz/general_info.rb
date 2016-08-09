@@ -6,7 +6,7 @@ module Opensaz
       @page = Nokogiri::HTML(html_str)
     end
 
-    def to_hash
+    def to_a
       keys = get_thead
       ary = []
       @page.css('tbody tr').each do |x|

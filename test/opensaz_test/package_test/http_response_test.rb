@@ -1,4 +1,4 @@
-require_relative '../test_helper'
+require_relative '../../test_helper'
 
 class HTTPResponseTest < Minitest::Test
   CRLF = "/r/n"
@@ -28,7 +28,7 @@ EOF
 
   def test_headers
     str1 = @str1_header.join(CRLF) + CRLF*2 + @str1_body
-    resp1 = Opensaz::HTTPResponse.new(str1)
+    resp1 = Opensaz::Package::HTTPResponse.new(str1)
     assert_equal "HTTP/1.1", resp1.headers[:version]
     assert_equal "302", resp1.headers[:code]
     assert_equal "Found", resp1.headers[:status]
@@ -39,7 +39,7 @@ EOF
 
   def test_body
     str1 = @str1_header.join(CRLF) + CRLF*2 + @str1_body
-    resp1 = Opensaz::HTTPResponse.new(str1)
+    resp1 = Opensaz::Package::HTTPResponse.new(str1)
     assert_equal @str1_body, resp1.body
   end
 end
