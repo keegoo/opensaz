@@ -1,5 +1,4 @@
 require 'zip'
-require 'tmpdir'
 require 'securerandom'
 
 module Opensaz
@@ -8,21 +7,21 @@ module Opensaz
       # saz_path should be absolute path
       raise "no such file: #{saz_path}" unless File.exist?(saz_path)
       @saz = saz_path
-      @dest_dir = Dir.tmpdir
     end
 
     def unzip
-      prefix = File.basename(@saz, ".*") + "_"
-      destination = File.join(@dest_dir, prefix + SecureRandom.hex)
-      # return destination dir
       Extractor.unzip(@saz, destination)
     end
 
-    def set_dest_dir(destination)
-      @dest_dir = destination
+    private
+
+    def destination
+      File.join(Dir.pwd, filename)
     end
 
-    private
+    def filename
+      File.basename(@saz, ".*") + "_" + SecureRandom.hex
+    end
 
     def self.unzip(file, destination)
       begin
