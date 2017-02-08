@@ -1,20 +1,25 @@
 module Opensaz
   class Builder
+
+    attr_reader :raw_files
+
     def initialize(saz_path)
       @saz_path = saz_path
       @dest = nil
-      @packages = nil
+      
+      @raw_files = get_raw_files
+      #@packages = get_packages
     end
 
-    def basic_info
+    private
+
+    def get_raw_files
       @dest ||= Extractor.new(@saz_path).unzip
-      general_file = File.join(@dest, "_index.htm")
-      raise "no such file: #{general_file}" unless File.exist?(general_file)
-
-      GeneralInfo.new(File.read(general_file)).to_a
+      index_file = File.join(@dest, "_index.htm")
+      GeneralInfo.new(index_file).to_a
     end
 
-    def packages
+    def get_packages
       @dest ||= Extractor.new(@saz_path).unzip
       ids = basic_info.map{|x| x[:id]}
       ids.each {|x| @packages.push(Package.new(x, @dest)) }

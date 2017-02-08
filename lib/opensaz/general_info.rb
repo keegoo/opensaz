@@ -2,12 +2,13 @@ require 'nokogiri'
 
 module Opensaz
   class GeneralInfo
-    def initialize(html_str)
-      @page = Nokogiri::HTML(html_str)
+    def initialize(index_file)
+      raise "no such file: #{index_file}" unless File.exist?(index_file)
+      @page = Nokogiri::HTML(File.read(index_file))
     end
 
     def to_a
-      keys = get_thead
+      keys = [:id, :c, :s, :m]
       ary = []
       @page.css('tbody tr').each do |x|
         values = get_tbody_tr(x)
@@ -19,15 +20,9 @@ module Opensaz
 
     private
 
-    def get_thead
-      [:c, :s, :m] + 
-      @page.css('thead tr th')[1..-1]
-        .map {|x| x.text == "#" ? :id : x.text.downcase.to_sym}
-    end
-
     def get_tbody_tr(tr_node)
       tds = tr_node.css('td')
-      seperate_c_s_m(tds[0]) + tds[1..-1].map{|x| x.text }
+      [tds[1].text] + seperate_c_s_m(tds[0])
     end
 
     def seperate_c_s_m(a_node)
