@@ -7,7 +7,7 @@ module Opensaz
     end
 
     def to_a
-      keys = [:id, :c, :s, :m]
+      keys = [:id, :c, :s, :m, :comment]
       ary = []
       @page.css('tbody tr').each do |x|
         values = get_tbody_tr(x)
@@ -19,13 +19,33 @@ module Opensaz
 
     private
 
+    # ============================
+    # note, the output order should 
+    # be inline with 
+    # [:id, :c, :s, :m, :comment]
     def get_tbody_tr(tr_node)
       tds = tr_node.css('td')
-      [tds[1].text] + seperate_c_s_m(tds[0])
+      [tds[1].text] + seperate_c_s_m(tds[0]) + [tds[comment_column-1].text]
     end
 
     def seperate_c_s_m(a_node)
       a_node.css('a').map{|a| folder_platform_compatible(a["href"]) }
+    end
+
+    # ============================
+    # get comment column
+    # return a number, indicating which
+    #   "th" is the comment.
+    # return 0 if could not find it
+    def comment_column
+      res = 0
+      @page.css('thead tr th').each do |x|
+        res += 1
+        if x.text == "Comments"
+          break
+        end
+      end
+      return res
     end
 
     # ============================

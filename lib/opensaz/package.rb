@@ -1,8 +1,9 @@
 module Opensaz
   class Package
-    attr_reader :id, :request, :response, :miscel
+    attr_reader :id, :request, :response, :comment
     def initialize(id, ahash)
       @id = id
+      @comment = ahash[:comment]
 
       requestf = File.join(ahash[:dest], ahash[:c])
       responsef = File.join(ahash[:dest], ahash[:s])
@@ -11,7 +12,6 @@ module Opensaz
 
       @request = HTTPRequest.new(str_in_file(requestf))
       @response = HTTPResponse.new(str_in_file(responsef))
-      # @miscel = HTTPMiscel.new(File.read(files[2]))
     end
 
     private

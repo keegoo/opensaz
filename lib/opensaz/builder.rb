@@ -16,10 +16,11 @@ module Opensaz
     # ============================
     # return a list of hash, e.g.:
     # [{
-    #   :id=>"2", 
-    #   :c=>"raw/1_c.txt", 
-    #   :s=>"raw/1_s.txt", 
-    #   :m=>"raw/1_m.xml"
+    #   id: "2", 
+    #   c: "raw/1_c.txt", 
+    #   s: "raw/1_s.txt", 
+    #   m: "raw/1_m.xml",
+    #   comment: "user login"
     # }, ...]
     def get_raw_files
       @dest ||= Extractor.new(@saz_path).unzip
@@ -35,7 +36,8 @@ module Opensaz
           dest: @dest,
           c: x[:c],
           s: x[:s],
-          m: x[:m]
+          m: x[:m],
+          comment: x[:comment]
         }
         pkgs.push(Package.new(x[:id], ahash))
       end
