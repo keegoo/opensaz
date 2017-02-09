@@ -18,4 +18,7 @@ puts a.raw_files
 
 a.packages.each do |x|
   puts x.request.headers
+  puts x.request.body
+  puts x.response.headers
+  puts x.response.body
 end
