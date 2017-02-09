@@ -16,7 +16,7 @@ module Opensaz
     end
 
     def body
-      @content.split(CRLF * 2)[1]
+      @content.split(CRLF * 2)[1..-1].join(CRLF * 2)
     end
 
     private

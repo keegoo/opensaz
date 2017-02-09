@@ -10,3 +10,4 @@
 design.txt
 .DS_Store
 bin/.DS_Store
+bin/test.rb
