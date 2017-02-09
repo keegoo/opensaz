@@ -26,7 +26,21 @@ module Opensaz
     end
 
     def seperate_c_s_m(a_node)
-      a_node.css('a').map{|a| a["href"] }
+      a_node.css('a').map{|a| folder_platform_compatible(a["href"]) }
+    end
+
+    # ============================
+    # "raw\\1_c.txt" is too windows specific
+    # from 
+    #   windows specific
+    # too
+    #   platform compatible
+    def folder_platform_compatible(win_path)
+      res = ""
+      win_path.split("\\").each do |f|
+        res = File.join(res, f)
+      end
+      res
     end
   end
 end

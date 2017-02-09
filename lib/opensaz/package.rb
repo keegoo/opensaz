@@ -1,28 +1,23 @@
 module Opensaz
   class Package
     attr_reader :request, :response, :miscel
-    def initialize(identity, dest)
-      @identity, @dest = identity, dest
-      check_files
-      files = get_files
+    def initialize(id, ahash)
+      @id = id
 
-      @request = HTTPRequest.new(File.read(files[0]))
-      @response = HTTPResponse.new(File.read(files[1]))
-      @miscel = HTTPMiscel.new(File.read(files[2]))
+      requestf = File.join(ahash[:dest], ahash[:c])
+      responsef = File.join(ahash[:dest], ahash[:s])
+
+      check_files(requestf, responsef)
+
+      @request = HTTPRequest.new(File.read(requestf))
+      @response = HTTPResponse.new(File.read(responsef))
+      # @miscel = HTTPMiscel.new(File.read(files[2]))
     end
 
     private
 
-    def check_files
-      get_files.each{|x| raise "No such file: #{x}" unless File.exist?(x) }
-    end
-
-    def get_files
-      return [
-        File.join(@dest, "raw", "#{@identity}_c.txt"),
-        File.join(@dest, "raw", "#{@identity}_s.txt"),
-        File.join(@dest, "raw", "#{@identity}_m.xml")
-        ]
+    def check_files(*files)
+      files.each{|x| raise "No such file: #{x}" unless File.exist?(x) }
     end
   end
 end
