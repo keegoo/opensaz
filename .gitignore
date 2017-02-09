@@ -7,3 +7,6 @@
 /pkg/
 /spec/reports/
 /tmp/
+design.txt
+.DS_Store
+bin/.DS_Store
