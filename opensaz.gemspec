@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
 
   spec.summary       = %q{a handy tool to read from .saz file.}
   spec.description   = %q{a handy tool to read from .saz file(package captured by Fiddler).}
-  spec.homepage      = ""
+  spec.homepage      = "https://github.com/keegoo/opensaz"
   spec.license       = "MIT"
 
   spec.files         = Dir.glob("lib/**/*") + %w(README.md LICENSE.txt)
