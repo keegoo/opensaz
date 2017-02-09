@@ -24,7 +24,22 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+{% highlight ruby %}
+require 'opensaz'
+
+a = Opensaz.read("/Users/keegoo/workspace/entity.saz")
+
+a.packages.each do |x|
+  puts x.id
+  puts x.request.headers[:path]
+  puts x.request.headers[:method]
+  puts x.request.headers[:content_type]
+  puts x.request.body
+
+  puts x.response.headers
+  puts x.response.body
+end
+{% endhighlight %}
 
 ## Development
 
