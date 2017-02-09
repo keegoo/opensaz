@@ -10,5 +10,12 @@ require "opensaz"
 # require "pry"
 # Pry.start
 
-require "irb"
-IRB.start
+# require "irb"
+# IRB.start
+
+a = Opensaz.read("/Users/keegoo/workspace/sample.saz")
+puts a.raw_files
+
+a.packages.each do |x|
+  puts x.request.headers
+end

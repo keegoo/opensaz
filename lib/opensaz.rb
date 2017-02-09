@@ -8,6 +8,9 @@ require_relative "opensaz/package"
 require_relative "opensaz/version"
 
 #a = Opensaz.read(saz_path)
+
+
+
 #a.basic_info[:destination]
 #a.basic_info[:number_of_requests]
 #a.basic_info[:hosts]
