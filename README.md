@@ -26,13 +26,13 @@ Or install it yourself as:
 
 #### Read .saz file
 
-A .saz file is simply a compressed file. You can extract it with 7zip. The folder structure after extraction is very clear.
+A .saz file is simply a compressed file. You can extract it with 7zip. The folder structure and content after extraction are very clear.
 
 When you read a .saz file, Opensaz will immediately extract it to the location where the execution happens.
 
 ```ruby
-# will create folder like sazfile_https_e5125274177355d294051e92098a2e58
-a = Opensaz.read("/Users/keegoo/workspace/xxx.saz")
+# will create folder like https_e5125274177355d294051e92098a2e58
+a = Opensaz.read("/Users/keegoo/workspace/https.saz")
 ``` 
 
 #### Packages
@@ -49,7 +49,7 @@ Typically a `package` consist of `id`, `comment`, `request` and `response`.
 ```ruby
 require 'opensaz'
 
-a = Opensaz.read("/Users/keegoo/workspace/xxx.saz")
+a = Opensaz.read("/Users/keegoo/workspace/entity.saz")
 
 a.packages.each do |x|
   puts x.id
@@ -66,7 +66,7 @@ end
 
 As a `package` is either HTTP or HTTPS protocol, you could pass :http or :https to filter it.
 
-It support :http, :https and :all. :all is default value.
+It support :http, :https and :all(default value).
 
 ```ruby
 a.packages(:http).each do |x|
@@ -93,12 +93,15 @@ Headers of both request and response have many [fields](https://en.wikipedia.org
 `package.request.headers` is a hash. The keys is simply fields name of request header, but with a bit modification. 
 
 e.g.:
+
     Accept          => :accept
     Accept-Charset  => :accept_charset
     Cookie          => :cookie
     ...
 
-If a key(field) doesn't exist, it will be `nil` which is how hash works in Ruby. 
+Same with response headers.
+
+If a key(field) doesn't exist, it will be `x.request.headers[:weird] = nil` which is how hash works in Ruby. 
 
 ## Development
 
