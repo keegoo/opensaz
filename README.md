@@ -24,7 +24,7 @@ Or install it yourself as:
 
 ## Usage
 
-{% highlight ruby %}
+```ruby
 require 'opensaz'
 
 a = Opensaz.read("/Users/keegoo/workspace/entity.saz")
@@ -39,7 +39,7 @@ a.packages.each do |x|
   puts x.response.headers
   puts x.response.body
 end
-{% endhighlight %}
+```
 
 ## Development
 
