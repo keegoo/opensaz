@@ -1,7 +1,7 @@
 module Opensaz
   class Builder
 
-    attr_reader :raw_files, :packages
+    attr_reader :raw_files
 
     def initialize(saz_path)
       @saz_path = saz_path
@@ -9,6 +9,17 @@ module Opensaz
       
       @raw_files = get_raw_files
       @packages = get_packages
+    end
+
+    def packages(type = :all)
+      case type
+      when :http
+        @packages.select{|x| not x.request.headers[:host].end_with?("443")}
+      when :https
+        @packages.select{|x| x.request.headers[:host].end_with?("443")}
+      else
+        @packages
+      end
     end
 
     private
