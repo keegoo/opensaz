@@ -24,13 +24,36 @@ Or install it yourself as:
 
 ## Usage
 
+#### Read .saz file
+
+A .saz file is simply a compressed file. You can extract it with 7zip. The folder structure after extraction is very clear.
+
+When you read a .saz file, Opensaz will immediately extract it to the location where the execution happens.
+
+```ruby
+# will create folder like sazfile_https_e5125274177355d294051e92098a2e58
+a = Opensaz.read("/Users/keegoo/workspace/xxx.saz")
+``` 
+
+#### Packages
+
+A `package` is an HTTP interaction(request and response) between client and server.
+
+Typically a `package` consist of `id`, `comment`, `request` and `response`.
+
+    id: is the number in the first column of packages-list in Fiddler UI.
+    comment: in Fiddler UI, you can add comment for each package.
+    request: a HTTP request.
+    response: a HTTP response.
+
 ```ruby
 require 'opensaz'
 
-a = Opensaz.read("/Users/keegoo/workspace/entity.saz")
+a = Opensaz.read("/Users/keegoo/workspace/xxx.saz")
 
 a.packages.each do |x|
   puts x.id
+  puts x.comment
   puts x.request.headers[:path]
   puts x.request.headers[:method]
   puts x.request.headers[:content_type]
@@ -40,6 +63,42 @@ a.packages.each do |x|
   puts x.response.body
 end
 ```
+
+As a `package` is either HTTP or HTTPS protocol, you could pass :http or :https to filter it.
+
+It support :http, :https and :all. :all is default value.
+
+```ruby
+a.packages(:http).each do |x|
+  # do anything
+end
+``` 
+
+You could use Ruby build-in methods `select` to do some filtering.
+
+```ruby
+a.packages.select{|x|x.comment =~ /some import message/}
+
+a.packages.select{|x|x.request.headers[:content_type] == "text/xml"}
+
+a.packages.select{|x|x.request.headers[:path].end_with?("api/batch")}
+
+# list goes on ...
+```
+
+#### headers key name
+
+Headers of both request and response have many [fields](https://en.wikipedia.org/wiki/List_of_HTTP_header_fields#Request_fields). 
+
+`package.request.headers` is a hash. The keys is simply fields name of request header, but with a bit modification. 
+
+e.g.:
+    Accept          => :accept
+    Accept-Charset  => :accept_charset
+    Cookie          => :cookie
+    ...
+
+If a key(field) doesn't exist, it will be `nil` which is how hash works in Ruby. 
 
 ## Development
 
