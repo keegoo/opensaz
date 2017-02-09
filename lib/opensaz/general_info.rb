@@ -39,7 +39,7 @@ module Opensaz
       win_path.split("\\").each do |f|
         res = File.join(res, f)
       end
-      res
+      res[1..-1]
     end
   end
 end
