@@ -1,10 +1,12 @@
 module Opensaz
   class HTTPRequest
-    CRLF = "/r/n"
+
+    CRLF = "\r\n"
     SEPERATOR = ": "
-    def initialize(request_str)
-      raise "request_str couldn't be nil" if request_str == nil
-      @request = request_str
+
+    def initialize(content)
+      raise "request_str couldn't be nil" if content == nil
+      @content = content
     end
 
     def headers
@@ -14,13 +16,13 @@ module Opensaz
     end
 
     def body
-      @request.split(CRLF * 2)[1]
+      @content.split(CRLF * 2)[1]
     end
 
     private
 
     def headers_str
-      @request.split(CRLF * 2)[0]
+      @content.split(CRLF * 2)[0]
     end
 
     def get_request_line(str)

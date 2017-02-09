@@ -4,7 +4,7 @@ class ContainerTest < Minitest::Test
   def setup
   end
 
-  def test_to_hash
+  def test_to_a
     str1 =<<EOF
 <thead>
 <tr>
@@ -16,18 +16,18 @@ class ContainerTest < Minitest::Test
 <tbody>
 <tr>
   <td>
-    <a href="url_1">C</a>
-    <a href="url_2">S</a>
-    <a href="url_3">M</a>
+    <a href="raw\\1_c.txt">C</a>
+    <a href="raw\\1_s.txt">S</a>
+    <a href="raw\\1_m.txt">M</a>
   </td>
   <td>1</td>
   <td>/entity/id</td>
 </tr>
 <tr>
   <td>
-    <a href="url_4">C</a>
-    <a href="url_5">S</a>
-    <a href="url_6">M</a>
+    <a href="raw\\1_c.txt">C</a>
+    <a href="raw\\1_s.txt">S</a>
+    <a href="raw\\1_m.txt">M</a>
   </td>
   <td>2</td>
   <td>/entity/name</td>
@@ -39,9 +39,8 @@ EOF
     assert_equal 2, ary.size
     assert_equal "2", ary[1][:id]
     assert_equal "1", ary[0][:id]
-    assert_equal "/entity/name", ary[1][:url]
-    assert_equal "url_1", ary[0][:c]
-    assert_equal "url_2", ary[0][:s]
-    assert_equal "url_3", ary[0][:m]
+    assert_equal "raw/1_c.txt", ary[0][:c]
+    assert_equal "raw/1_s.txt", ary[0][:s]
+    assert_equal "raw/1_m.txt", ary[0][:m]
   end
 end

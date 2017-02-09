@@ -1,7 +1,7 @@
 require_relative '../test_helper'
 
 class HTTPRequestTest < Minitest::Test
-  CRLF = "/r/n"
+  CRLF = "\r\n"
 
   def setup
     @str1 = [

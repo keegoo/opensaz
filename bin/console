@@ -13,12 +13,14 @@ require "opensaz"
 # require "irb"
 # IRB.start
 
-a = Opensaz.read("/Users/keegoo/workspace/sample.saz")
+a = Opensaz.read("C:\\Users\\congy\\Desktop\\tmp\\sample.saz")
 puts a.raw_files
 
 a.packages.each do |x|
+  puts x.id
   puts x.request.headers
   puts x.request.body
+
   puts x.response.headers
   puts x.response.body
 end
