@@ -2,9 +2,8 @@ require 'nokogiri'
 
 module Opensaz
   class GeneralInfo
-    def initialize(index_file)
-      raise "no such file: #{index_file}" unless File.exist?(index_file)
-      @page = Nokogiri::HTML(File.read(index_file))
+    def initialize(content)
+      @page = Nokogiri::HTML(content)
     end
 
     def to_a

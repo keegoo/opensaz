@@ -24,7 +24,8 @@ module Opensaz
     def get_raw_files
       @dest ||= Extractor.new(@saz_path).unzip
       index_file = File.join(@dest, "_index.htm")
-      GeneralInfo.new(index_file).to_a
+      raise "no such file: #{index_file}" unless File.exist?(index_file)
+      GeneralInfo.new(File.read(index_file)).to_a
     end
 
     def get_packages
