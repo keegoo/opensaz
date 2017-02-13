@@ -25,7 +25,15 @@ module Opensaz
     # [:id, :c, :s, :m, :comment]
     def get_tbody_tr(tr_node)
       tds = tr_node.css('td')
-      [tds[1].text] + seperate_c_s_m(tds[0]) + [tds[comment_column-1].text]
+
+      i = comment_column
+      if i == 0
+        # no comment found
+        [tds[1].text] + seperate_c_s_m(tds[0]) + [nil]
+      else
+        comment = text_or_nil(tds[i-1].text)
+        [tds[1].text] + seperate_c_s_m(tds[0]) + [comment]
+      end
     end
 
     def seperate_c_s_m(a_node)
@@ -46,6 +54,13 @@ module Opensaz
         end
       end
       return res
+    end
+
+    # ============================
+    # return nil if empty. 
+    # return itself if not empty.
+    def text_or_nil(comment)
+      comment.length == 0 ? nil : comment
     end
 
     # ============================
