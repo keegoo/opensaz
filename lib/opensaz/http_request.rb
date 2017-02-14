@@ -16,7 +16,8 @@ module Opensaz
     end
 
     def body
-      @content.split(CRLF * 2)[1..-1].join(CRLF * 2)
+      str = @content.split(CRLF * 2)[1..-1].join(CRLF * 2)
+      str == "" ? nil : str
     end
 
     private
