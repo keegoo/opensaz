@@ -1,5 +1,6 @@
 require 'zip'
-require 'securerandom'
+require 'digest'
+# require 'securerandom'
 
 module Opensaz
   class Extractor
@@ -7,10 +8,11 @@ module Opensaz
       # saz_path should be absolute path
       raise "no such file: #{saz_path}" unless File.exist?(saz_path)
       @saz = saz_path
+      @md5 = Digest::MD5.hexdigest(File.read(@saz))
     end
 
     def unzip
-      Extractor.unzip(@saz, destination)
+      File.exist?(destination) ? destination : Extractor.unzip(@saz, destination)
     end
 
     private
@@ -20,7 +22,7 @@ module Opensaz
     end
 
     def filename
-      File.basename(@saz, ".*") + "_" + SecureRandom.hex
+      File.basename(@saz, ".*") + "_" + @md5
     end
 
     def self.unzip(file, destination)

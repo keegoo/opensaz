@@ -28,7 +28,8 @@ Or install it yourself as:
 
 A .saz file is simply a compressed file. You can extract it with 7zip. The folder structure and content after extraction are very clear.
 
-When you read a .saz file, Opensaz will immediately extract it to the location where the execution happens.
+The first time when you call `Opensaz.read('any.saz')`, it will extract all the contents into folder `any_#{md5}`. The next time you run it, as `any_#{md5}` already exists(unless you remove it), this function will return the path directly instead of extracting the content again.
+
 
 ```ruby
 # will create folder like https_e5125274177355d294051e92098a2e58
